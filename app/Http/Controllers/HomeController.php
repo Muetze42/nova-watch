@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Benchmark;
 
 class HomeController extends Controller
 {
@@ -12,12 +13,7 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-        dd(\App\Models\Release::all()->pluck('notes'));
-        dd(array_diff(
-            \App\Models\Release::first()->files,
-            \App\Models\Release::latest()->first()->files,
-        ));
-        dd(\App\Models\Release::latest()->first()->files);
+        Benchmark::dd(fn () => \App\Services\Nova::comparison('4.29.5', '4.27.14'), iterations: 500);
 
         return Inertia::render('Home/Index', [
             'ip' => $request->ip(),

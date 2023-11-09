@@ -2,8 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Release;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class Nova
 {
@@ -59,5 +63,68 @@ class Nova
 
             return $version == $majorVersion;
         });
+    }
+
+    /**
+     * Compare the files of 2 Releases.
+     *
+     * @param string  $version1
+     * @param string  $version2
+     *
+     * @return array|null
+     */
+    public static function comparison(string $version1, string $version2): ?array
+    {
+        $versions = [$version1, $version2];
+        sort($versions);
+        $file = 'comparisons/' . implode('-', $versions);
+        if (Storage::disk('nova')->exists($file)) {
+            return Storage::disk('nova')->json($file);
+        }
+
+        $files = Release::whereMajorVersion(getMajorVersion($version1))
+            ->where(function (Builder $query) use ($version1, $version2) {
+                /* @var \Illuminate\Database\Eloquent\Builder|\App\Models\Release $query */
+                $query->where('version', $version1)->orWhere('version', $version2);
+            })
+            ->orderBy('version_id')
+            ->get('files')
+            ->pluck('files')
+            ->toArray();
+
+        if (count($files) != 2) {
+            return null;
+        }
+
+        $updated = array_unique(array_merge(
+            array_keys(array_diff($files[0], $files[1])),
+            array_keys(array_diff($files[1], $files[0])),
+        ));
+
+        $releaseFiles = [
+            Arr::where(array_keys($files[0]), function (string $file) use ($updated) {
+                return in_array($file, $updated);
+            }),
+            Arr::where(array_keys($files[1]), function (string $file) use ($updated) {
+                return in_array($file, $updated);
+            })
+        ];
+
+        $created = array_diff($releaseFiles[1], $releaseFiles[0]);
+        $deleted = array_diff($releaseFiles[0], $releaseFiles[1]);
+
+        $updated = Arr::where($updated, function (string $file) use ($created, $deleted) {
+            return !in_array($file, $created) && !in_array($file, $deleted);
+        });
+
+        $data = [
+            'created' => $created,
+            'deleted' => $deleted,
+            'updated' => $updated,
+        ];
+
+        Storage::disk('nova')->put($file, json_encode($data));
+
+        return $data;
     }
 }
