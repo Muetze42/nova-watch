@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompareController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class);
+Route::get('/{version1?}/{version2?}', CompareController::class);

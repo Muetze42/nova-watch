@@ -1,0 +1,33 @@
+@layer components {
+  .form-select, .form-input, .form-textarea {
+    @apply text-neutral-950;
+    @apply rounded;
+    @apply py-0.5 pl-2;
+    @apply focus:ring-accent-500 focus:ring-2 ring-offset-2;
+  }
+
+  .form-input {
+    @apply pr-2;
+  }
+
+  .form-select {
+    @apply pr-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center gap-1 justify-center rounded;
+    @apply leading-normal transition duration-150 ease-in-out;
+    @apply bg-gradient-to-t shadow-lg;
+
+    @apply enabled:from-blue-500 enabled:to-blue-300;
+    @apply enabled:dark:text-achromatic-300 enabled:dark:from-achromatic-800 enabled:dark:to-achromatic-700;
+    @apply enabled:hover:to-blue-400 enabled:dark:hover:to-achromatic-600;
+
+    @apply disabled:text-neutral-300;
+    @apply disabled:from-neutral-500 disabled:to-neutral-500/70;
+    @apply disabled:dark:text-neutral-200/50;
+    @apply disabled:dark:from-neutral-700 disabled:dark:to-neutral-600;
+
+    @apply p-1;
+  }
+}

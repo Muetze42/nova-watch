@@ -41,8 +41,8 @@ devDependencies:
     specifier: 1.5.1
     version: 1.5.1
   '@tailwindcss/forms':
-    specifier: 0.5.6
-    version: 0.5.6(tailwindcss@3.3.5)
+    specifier: 0.5.7
+    version: 0.5.7(tailwindcss@3.3.5)
   '@vitejs/plugin-vue':
     specifier: 4.4.1
     version: 4.4.1(vite@4.5.0)(vue@3.3.8)
@@ -53,7 +53,7 @@ devDependencies:
     specifier: 10.4.16
     version: 10.4.16(postcss@8.4.31)
   axios:
-    specifier: ^1.1.2
+    specifier: ^1.6.1
     version: 1.6.1
   eslint:
     specifier: 8.53.0
@@ -62,7 +62,7 @@ devDependencies:
     specifier: 9.18.1
     version: 9.18.1(eslint@8.53.0)
   laravel-vite-plugin:
-    specifier: ^0.8.0
+    specifier: ^0.8.1
     version: 0.8.1(vite@4.5.0)
   postcss:
     specifier: 8.4.31
@@ -74,7 +74,7 @@ devDependencies:
     specifier: 3.3.5
     version: 3.3.5
   vite:
-    specifier: ^4.0.0
+    specifier: ^4.5.0
     version: 4.5.0(sass@1.69.5)
   vue:
     specifier: 3.3.8
@@ -708,8 +708,8 @@ packages:
     resolution: {integrity: sha512-6i/8UoL0P5y4leBIGzvkZdS85RDMG9y1ihZzmTZQ5LdHUYmZ7pKFoj8X0236s3lusPs1Fa5HTQUpwI+UfTcmeA==}
     dev: true
 
-  /@tailwindcss/forms@0.5.6(tailwindcss@3.3.5):
-    resolution: {integrity: sha512-Fw+2BJ0tmAwK/w01tEFL5TiaJBX1NLT1/YbWgvm7ws3Qcn11kiXxzNTEQDMs5V3mQemhB56l3u0i9dwdzSQldA==}
+  /@tailwindcss/forms@0.5.7(tailwindcss@3.3.5):
+    resolution: {integrity: sha512-QE7X69iQI+ZXwldE+rzasvbJiyV/ju1FGHH0Qn2W3FKbuYtqp8LKcy6iSw79fVUT5/Vvf+0XgLCeYVG+UV6hOw==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:

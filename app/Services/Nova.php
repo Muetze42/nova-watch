@@ -3,10 +3,10 @@
 namespace App\Services;
 
 use App\Models\Release;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class Nova
@@ -107,7 +107,7 @@ class Nova
             }),
             Arr::where(array_keys($files[1]), function (string $file) use ($updated) {
                 return in_array($file, $updated);
-            })
+            }),
         ];
 
         $created = array_diff($releaseFiles[1], $releaseFiles[0]);

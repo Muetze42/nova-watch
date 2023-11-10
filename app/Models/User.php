@@ -59,6 +59,6 @@ class User extends Authenticatable
      */
     public function hasVerifiedNovaLicence(): bool
     {
-        return $this->licence_checked_at && $this->licence_checked_at > now()->subWeek();
+        return $this->licence_checked_at && $this->licence_checked_at > now()->subDay();
     }
 }

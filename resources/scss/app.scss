@@ -2,5 +2,74 @@
 @tailwind components;
 @tailwind utilities;
 
-//@import "fonts/inter-var";
-//@import "fonts/fira-code";
+@layer base {
+  h1 {
+    @apply hidden;
+  }
+}
+
+@layer components {
+  .content {
+    @apply w-full max-w-6xl px-4 mx-auto;
+  }
+
+  section {
+    @apply p-4 rounded border shadow;
+    @apply border-primary-200 dark:border-primary-800;
+    @apply bg-gradient-to-t;
+    @apply from-primary-300 dark:to-primary-300/30;
+    @apply dark:from-primary-800 dark:to-primary-800/30;
+  }
+}
+
+@import "fonts/inter-var";
+@import "fonts/fira-code";
+@import "forms";
+
+#app {
+  @apply h-screen w-full flex flex-col;
+}
+
+.brand {
+  span {
+    &:first-child {
+      @apply text-sky-600 dark:text-sky-400 font-semibold;
+    }
+
+    &:last-child {
+      @apply font-medium;
+    }
+  }
+
+  &:hover {
+    span {
+      &:first-child {
+        @apply text-blue-600 dark:text-blue-400;
+      }
+
+      &:last-child {
+        @apply text-blue-400 dark:text-blue-200;
+      }
+    }
+  }
+}
+
+a {
+  &:hover {
+    @apply underline decoration-1 underline-offset-1 decoration-blue-500/50;
+  }
+}
+
+footer {
+  a {
+    @apply hover:text-blue-600 hover:dark:text-blue-400;
+  }
+}
+
+main {
+  a {
+    @apply font-medium after:content-['_↗'] after:text-sm after:font-bold;
+    @apply text-sky-600 hover:text-blue-600;
+    @apply dark:text-sky-400 dark:hover:text-blue-400;
+  }
+}

@@ -13246,6 +13246,17 @@
         {
                         return \Illuminate\Http\Request::inertia();
         }
+                    /**
+         * 
+         *
+         * @see \App\Providers\AppServiceProvider::bootMacros()
+         * @return bool 
+         * @static 
+         */ 
+        public static function verifiedNovaLicence()
+        {
+                        return \Illuminate\Http\Request::verifiedNovaLicence();
+        }
          
     }
             /**
@@ -19065,6 +19076,17 @@
         public static function inertia()
         {
                         return \Illuminate\Http\Request::inertia();
+        }
+                    /**
+         * 
+         *
+         * @see \App\Providers\AppServiceProvider::bootMacros()
+         * @return bool 
+         * @static 
+         */ 
+        public static function verifiedNovaLicence()
+        {
+                        return \Illuminate\Http\Request::verifiedNovaLicence();
         }
          
     }

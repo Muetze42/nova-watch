@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,15 +20,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //\Illuminate\Http\Resources\Json\JsonResource::withoutWrapping();
+        $this->bootMacros();
+    }
 
-        Password::defaults(static function () {
-            return Password::min(12)
-                ->letters()
-                ->mixedCase()
-                ->numbers()
-                ->symbols()
-                ->uncompromised();
+    /**
+     * Bootstrap application macros.
+     */
+    public function bootMacros(): void
+    {
+        Request::macro('verifiedNovaLicence', function (): bool {
+            if ($this->user()) {
+                return $this->user()->hasVerifiedNovaLicence();
+            }
+
+            $session = $this->session();
+            if ($session && $checked = $session->get('licence_checked_at')) {
+                return $checked > now()->subDay();
+            }
+
+            return false;
         });
     }
 }
