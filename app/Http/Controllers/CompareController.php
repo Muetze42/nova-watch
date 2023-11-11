@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Nova;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Services\Nova;
 
 class CompareController extends Controller
 {

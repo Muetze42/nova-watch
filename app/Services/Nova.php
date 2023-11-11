@@ -17,16 +17,20 @@ class Nova
      * @param string  $host
      * @param string  $key
      *
-     * @return bool
+     * @return array|mixed|null
      */
-    public static function checkUserLicenseValidity(string $host, string $key): bool
+    public static function getNovaLicenceValidationError(string $host, string $key): mixed
     {
         $response = Http::post('https://nova.laravel.com/api/license-check', [
             'url' => $host,
             'key' => $key,
         ]);
 
-        return $response->status() == 204;
+        if ($response->status() == 204) {
+            return null;
+        }
+
+        return $response->json('message');
     }
 
     /**

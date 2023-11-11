@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ValidateController;
+use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class);
-Route::get('/{version1?}/{version2?}', CompareController::class);
+Route::get('{version1?}/{version2?}', CompareController::class);
+
+Route::post('validate', ValidateController::class)
+    ->withoutMiddleware(HandleInertiaRequests::class);

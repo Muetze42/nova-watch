@@ -5,6 +5,7 @@ import { createInertiaApp, Link } from '@inertiajs/vue3'
 import Layout from '@/Layout.vue'
 import CompareSection from '@/Components/CompareSection.vue'
 import CompareIcon from '@/Components/CompareIcon.vue'
+import Spinner from '@/Components/Spinner.vue'
 import Dialog from '@/Components/Dialog/Dialog.vue'
 
 /**
@@ -16,11 +17,24 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 library.add(faGithub)
 // Regular
-import { faSquarePlus, faSquareMinus, faSquare } from '@fortawesome/free-regular-svg-icons'
-library.add(faSquarePlus, faSquareMinus, faSquare)
+import {
+  faSquarePlus,
+  faSquareMinus,
+  faSquare,
+  faPenToSquare
+} from '@fortawesome/free-regular-svg-icons'
+library.add(faSquarePlus, faSquareMinus, faSquare, faPenToSquare)
 // Solid
-import { faCircle, faSun, faMoon, faCode, faRightLeft } from '@fortawesome/free-solid-svg-icons'
-library.add(faCircle, faSun, faMoon, faCode, faRightLeft)
+import {
+  faCircle,
+  faSun,
+  faMoon,
+  faCode,
+  faRightLeft,
+  faSpinner,
+  faCheck
+} from '@fortawesome/free-solid-svg-icons'
+library.add(faCircle, faSun, faMoon, faCode, faRightLeft, faSpinner, faCheck)
 
 createInertiaApp({
   resolve: (name) => {
@@ -43,7 +57,19 @@ createInertiaApp({
         },
         methods: {
           errorHandler(error) {
-            console.log(error)
+            let status = error.response.status
+            if (status === 419 || status === 503) {
+              let message =
+                status === 419
+                  ? 'Your session has expired. Click OK to reload the page.'
+                  : 'There is an update in progress. This lasts only a few seconds.'
+              alert(message)
+              location.reload()
+            } else {
+              error.response && error.response.data.message
+                ? alert('Error ' + status + ': ' + error.response.data.message)
+                : alert('Error ' + status)
+            }
           },
           /**
            * @param {Number} count
@@ -56,6 +82,7 @@ createInertiaApp({
           }
         }
       })
+      .component('Spinner', Spinner)
       .component('Dialog', Dialog)
       .component('Link', Link)
       .component('CompareSection', CompareSection)

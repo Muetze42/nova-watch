@@ -51,7 +51,7 @@ class HandleInertiaRequests extends Middleware
         $route = $request->route();
 
         return array_merge(parent::share($request), [
-            'user' => fn () => $user ? $user->only(['name', 'email']) : ['name' => 'Norman', 'email' => 'as'],
+            'user' => fn () => $user ? $user->only(['name', 'email']) : null,
             'licensed' => fn () => $request->verifiedNovaLicence(),
             'versions' => $versions,
             'selected' => [

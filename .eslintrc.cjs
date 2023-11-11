@@ -9,7 +9,8 @@ module.exports = {
   ],
   globals: {
     transChoice: true,
-    errorHandler: true
+    errorHandler: true,
+    axios: true
   },
   env: {
     browser: true,

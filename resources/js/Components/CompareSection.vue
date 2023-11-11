@@ -29,7 +29,8 @@
             "
             @click="compare"
           >
-            <font-awesome-icon :icon="['fas', 'right-left']" fixed-width />
+            <font-awesome-icon v-if="!processing" :icon="['fas', 'right-left']" fixed-width />
+            <Spinner v-else />
             Compare
           </button>
         </div>
@@ -41,12 +42,15 @@
 <script>
 import { reactive } from 'vue'
 import { router } from '@inertiajs/vue3'
+import Spinner from '@/Components/Spinner.vue'
 
 export default {
   name: 'CompareSection',
+  components: { Spinner },
   emits: ['show'],
   data() {
     return {
+      processing: false,
       current: [this.$page.props.selected[0], this.$page.props.selected[1]],
       selected: reactive({
         0: this.$page.props.selected[0],
@@ -59,6 +63,7 @@ export default {
   },
   methods: {
     compare() {
+      this.processing = true
       router.get('/' + this.selected[0] + '/' + this.selected[1])
     },
     updated() {

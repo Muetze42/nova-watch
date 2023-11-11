@@ -1,0 +1,10 @@
+@layer components {
+  .info {
+    @apply inline-flex ring-1 flex-col gap-1 max-w-lg border-l-4 p-4 rounded mx-auto font-medium shadow;
+    @apply ring-sky-500/50 border-blue-400 bg-blue-50 text-blue-700;
+  }
+  .danger {
+    @apply rounded p-2 font-bold text-center;
+    @apply bg-red-300 text-red-900;
+  }
+}

@@ -20,7 +20,7 @@ return new class () extends Migration
             $table->boolean('save_licence')->default(false);
             $table->text('licence_host')->nullable();
             $table->text('licence_key')->nullable();
-            $table->timestamp('licence_checked_at');
+            $table->timestamp('licence_checked_at')->nullable();
             $table->timestamps();
         });
     }

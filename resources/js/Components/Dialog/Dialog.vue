@@ -61,7 +61,6 @@ export default {
   created() {
     let ref = this
     document.addEventListener('keyup', function (event) {
-      console.log(event)
       if (event.key === 'Escape' || event.code === 'Escape') {
         ref.$emit('close')
       }

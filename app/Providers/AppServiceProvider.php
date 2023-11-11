@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
             $session = $this->session();
             if ($session && $checked = $session->get('licence_checked_at')) {
-                return $checked > now()->subDay();
+                return $checked > now()->subDay()->timestamp;
             }
 
             return false;

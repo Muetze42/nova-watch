@@ -13,7 +13,7 @@ module.exports = {
       },
       colors: {
         primary: colors.slate,
-        accent: colors.purple,
+        accent: colors.emerald,
         achromatic: colors.gray
       }
     }

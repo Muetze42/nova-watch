@@ -14,6 +14,10 @@
     @apply pr-8;
   }
 
+  .form-checkbox {
+    @apply rounded text-accent-500 mb-0.5;
+  }
+
   .btn {
     @apply inline-flex items-center gap-1 justify-center rounded;
     @apply leading-normal transition duration-150 ease-in-out;
@@ -30,4 +34,20 @@
 
     @apply p-1;
   }
+}
+
+label.checkbox {
+  @apply transition-all transform;
+  @apply cursor-pointer select-none;
+  @apply transition-all duration-150;
+
+  span {
+    @apply hover:text-white ml-1;
+  }
+
+  //&:hover {
+  //  span {
+  //    @apply motion-safe:text-lg transition-all duration-150;
+  //  }
+  //}
 }
