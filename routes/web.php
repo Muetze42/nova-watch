@@ -35,4 +35,3 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])
         ->name('logout');
 });
-
