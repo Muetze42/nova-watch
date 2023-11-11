@@ -27,7 +27,12 @@ Route::post('validate', ValidateController::class)
     ->withoutMiddleware(HandleInertiaRequests::class)
     ->name('validate');
 
-Route::get('auth/github/callback', [AuthController::class, 'callback'])
-    ->name('auth.callback');
-Route::post('auth/github', [AuthController::class, 'redirect'])
-    ->name('auth.redirect');
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::get('github/callback', [AuthController::class, 'callback'])
+        ->name('callback');
+    Route::post('github', [AuthController::class, 'redirect'])
+        ->name('redirect');
+    Route::post('logout', [AuthController::class, 'logout'])
+        ->name('logout');
+});
+

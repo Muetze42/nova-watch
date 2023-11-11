@@ -109,4 +109,20 @@ class AuthController extends Controller
             $user->update(['licence_checked_at' => $checked]);
         }
     }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param \Illuminate\Http\Request  $request
+     *
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+    }
 }

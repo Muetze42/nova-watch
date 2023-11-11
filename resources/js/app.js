@@ -13,18 +13,19 @@ import Dialog from '@/Components/Dialog/Dialog.vue'
  */
 import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-// Brands
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+
 library.add(faGithub)
-// Regular
+
 import {
   faSquarePlus,
   faSquareMinus,
   faSquare,
   faPenToSquare
 } from '@fortawesome/free-regular-svg-icons'
+
 library.add(faSquarePlus, faSquareMinus, faSquare, faPenToSquare)
-// Solid
+
 import {
   faCircle,
   faSun,
@@ -32,9 +33,11 @@ import {
   faCode,
   faRightLeft,
   faSpinner,
-  faCheck
+  faCheck,
+  faCaretRight
 } from '@fortawesome/free-solid-svg-icons'
-library.add(faCircle, faSun, faMoon, faCode, faRightLeft, faSpinner, faCheck)
+
+library.add(faCircle, faSun, faMoon, faCode, faRightLeft, faSpinner, faCheck, faCaretRight)
 
 createInertiaApp({
   resolve: (name) => {

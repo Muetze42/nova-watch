@@ -1,0 +1,12 @@
+header {
+  .menu-items {
+    button, a {
+      @apply text-left w-full px-2 py-1;
+
+      &:hover {
+        @apply hover:bg-achromatic-300;
+        @apply hover:dark:bg-achromatic-700;
+      }
+    }
+  }
+}
