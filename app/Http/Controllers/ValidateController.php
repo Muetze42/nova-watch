@@ -38,6 +38,13 @@ class ValidateController extends Controller
         if ($user) {
             $user->update(['licence_checked_at' => now()]);
 
+            if ($request->input('save')) {
+                $user->update([
+                    'licence_url' => $request->input('url'),
+                    'licence_key' => $request->input('key'),
+                ]);
+            }
+
             return;
         }
 
