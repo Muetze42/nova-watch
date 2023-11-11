@@ -13,12 +13,12 @@ class ValidateController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate([
-            'host' => ['required', 'string'],
+            'url' => ['required', 'string'],
             'key' => ['required', 'string'],
             'save' => ['bool'],
         ]);
 
-        if (!$message = Nova::getNovaLicenceValidationError($request->input('host'), $request->input('key'))) {
+        if (!$message = Nova::getNovaLicenceValidationError($request->input('url'), $request->input('key'))) {
             $this->storeValidation($request);
 
             return ['success' => true];
@@ -37,6 +37,7 @@ class ValidateController extends Controller
         $user = $request->user();
         if ($user) {
             $user->update(['licence_checked_at' => now()]);
+
             return;
         }
 

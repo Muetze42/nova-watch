@@ -18,7 +18,7 @@ return new class () extends Migration
             $table->string('email');
             $table->rememberToken();
             $table->boolean('save_licence')->default(false);
-            $table->text('licence_host')->nullable();
+            $table->text('licence_url')->nullable();
             $table->text('licence_key')->nullable();
             $table->timestamp('licence_checked_at')->nullable();
             $table->timestamps();

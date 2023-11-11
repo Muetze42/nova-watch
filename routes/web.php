@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ValidateController;
@@ -17,8 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomeController::class);
-Route::get('{version1?}/{version2?}', CompareController::class);
+Route::get('/', HomeController::class)
+    ->name('home');
+Route::get('{version1?}/{version2?}', CompareController::class)
+    ->name('compare');
 
 Route::post('validate', ValidateController::class)
-    ->withoutMiddleware(HandleInertiaRequests::class);
+    ->withoutMiddleware(HandleInertiaRequests::class)
+    ->name('validate');
+
+Route::get('auth/github/callback', [AuthController::class, 'callback'])
+    ->name('auth.callback');
+Route::post('auth/github', [AuthController::class, 'redirect'])
+    ->name('auth.redirect');

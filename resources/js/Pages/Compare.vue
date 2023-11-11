@@ -61,8 +61,8 @@ import Spinner from '@/Components/Spinner.vue'
       <form class="flex flex-col divide-y divide-achromatic-600/20" @submit.prevent="submit">
         <div class="p-2 text-center">Each verification is valid for a maximum of 24 hours.</div>
         <label class="p-2 pb-3.5">
-          Host:
-          <input v-model="form.host" class="form-input w-full" type="text" placeholder="Host" />
+          url:
+          <input v-model="form.url" class="form-input w-full" type="text" placeholder="url" />
         </label>
         <label class="p-2 pb-3.5">
           Key:
@@ -80,7 +80,7 @@ import Spinner from '@/Components/Spinner.vue'
           </div>
         </div>
         <div class="p-2 text-center">
-          <button type="submit" class="btn" :disabled="!form.host || !form.key || processing">
+          <button type="submit" class="btn" :disabled="!form.url || !form.key || processing">
             <Spinner v-if="processing" />
             <font-awesome-icon v-else :icon="['fas', 'check']" fixed-width />
             Validate
@@ -113,7 +113,7 @@ export default {
       showLicenceValidation: false,
       showComparison: false,
       form: {
-        host: null,
+        url: null,
         key: null,
         save: false
       },
@@ -131,7 +131,7 @@ export default {
             ref.formError = null
             ref.showLicenceValidation = false
             ref.form = {
-              host: null,
+              url: null,
               key: null,
               save: false
             }

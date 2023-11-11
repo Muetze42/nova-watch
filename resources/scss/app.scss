@@ -67,7 +67,7 @@ footer {
   }
 }
 
-main {
+main, label {
   a {
     @apply font-medium after:content-['_↗'] after:text-sm after:font-bold;
     @apply text-sky-600 hover:text-blue-600;

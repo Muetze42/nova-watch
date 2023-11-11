@@ -50,7 +50,7 @@ namespace App\Models{
  * @property string $email
  * @property string|null $remember_token
  * @property bool $save_licence
- * @property mixed|null $licence_host
+ * @property mixed|null $licence_url
  * @property mixed|null $licence_key
  * @property \Illuminate\Support\Carbon $licence_checked_at
  * @property \Illuminate\Support\Carbon|null $created_at

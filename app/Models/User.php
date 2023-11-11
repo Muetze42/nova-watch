@@ -23,7 +23,7 @@ class User extends Authenticatable
         'email',
         'github_id',
         'save_licence',
-        'licence_host',
+        'licence_url',
         'licence_key',
         'licence_checked_at',
     ];
@@ -35,7 +35,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
-        'licence_host',
+        'licence_url',
         'licence_key',
         'licence_checked_at',
     ];
@@ -47,7 +47,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'save_licence' => 'bool',
-        'licence_host' => 'encrypted',
+        'licence_url' => 'encrypted',
         'licence_key' => 'encrypted',
         'licence_checked_at' => 'datetime',
     ];
