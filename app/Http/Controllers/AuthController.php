@@ -41,8 +41,6 @@ class AuthController extends Controller
             ? $this->generator->full()
             : $this->generator->previous();
 
-        appLog($intended);
-
         if ($intended) {
             $request->session()->put('url.intended', $intended);
         }

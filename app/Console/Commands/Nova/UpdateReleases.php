@@ -96,14 +96,18 @@ class UpdateReleases extends Command
         }
         Storage::disk('nova')->move('temp/vendor/laravel/nova', 'releases/' . $release['version']);
 
-        Release::create([
-            'version' => $release['version'],
-            'notes' => $release['notes'],
-            'files' => $this->getFilesChecksumArray(
-                Storage::disk('nova')->allFiles('releases/' . $release['version'])
-            ),
-            'published_at' => $release['created_at'],
-        ]);
+        Release::withoutEvents(function () use ($release) {
+            Release::forceCreate([
+                'version' => $release['version'],
+                'notes' => $release['notes'],
+                'major_version' => getMajorVersion($release['version']),
+                'version_id' => getVersionId($release['version']),
+                'files' => $this->getFilesChecksumArray(
+                    Storage::disk('nova')->allFiles('releases/' . $release['version'])
+                ),
+                'published_at' => $release['created_at'],
+            ]);
+        });
     }
 
     /**

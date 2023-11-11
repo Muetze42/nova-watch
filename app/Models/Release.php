@@ -16,8 +16,6 @@ class Release extends Model
      */
     protected $fillable = [
         'version',
-        'version_id',
-        'major_version',
         'notes',
         'files',
         'published_at',
@@ -53,6 +51,9 @@ class Release extends Model
         static::saving(function (self $release) {
             $release->major_version = getMajorVersion($release->version);
             $release->version_id = getVersionId($release->version);
+        });
+        static::created(function (self $release) {
+            // Todo Notifications
         });
     }
 }
