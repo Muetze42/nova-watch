@@ -20,8 +20,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)
     ->name('home');
-Route::get('{version1?}/{version2?}', CompareController::class)
+
+Route::get('{version1?}/{version2?}', [CompareController::class, 'compare'])
     ->name('compare');
+Route::post('diff', [CompareController::class, 'diff'])
+    ->name('compare.diff');
 
 Route::post('validate', ValidateController::class)
     ->withoutMiddleware(HandleInertiaRequests::class)

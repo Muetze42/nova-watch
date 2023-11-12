@@ -1,0 +1,21 @@
+.dialog-content {
+  @apply overflow-y-auto max-h-96;
+}
+
+@media (min-height: 700px) {
+  .dialog-content {
+    @apply max-h-[35rem];
+  }
+}
+
+@media (min-height: 800px) {
+  .dialog-content {
+    @apply max-h-[40rem];
+  }
+}
+
+@media (min-height: 900px) {
+  .dialog-content {
+    @apply max-h-[50rem];
+  }
+}

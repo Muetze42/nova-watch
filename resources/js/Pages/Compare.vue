@@ -1,5 +1,5 @@
 <script setup>
-import { TransitionRoot } from '@headlessui/vue'
+import { TransitionRoot, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import Spinner from '@/Components/Spinner.vue'
 </script>
 <template>
@@ -14,7 +14,67 @@ import Spinner from '@/Components/Spinner.vue'
     leave-to="opacity-0"
     class="flex flex-col gap-2"
   >
-    <section v-if="licensed">A</section>
+    <section v-if="licensed" class="flex flex-col gap-1">
+      <template v-for="(files, action) in comparison" :key="action">
+        <Disclosure v-if="files.length" v-slot="{ open }">
+          <DisclosureButton
+            class="px-1 py-0.5 rounded cursor-pointer ring-1 ring-transparent hover:ring-accent-500 brightness-75 hover:brightness-100"
+            as="div"
+            :class="[action, { 'brightness-100': open }]"
+          >
+            <font-awesome-icon
+              v-if="files.length"
+              :icon="['fas', 'caret-right']"
+              :class="{ 'rotate-90': open }"
+            />
+            {{ files.length }}
+            {{ transChoice(files.length) }}
+            {{ action }}
+          </DisclosureButton>
+          <transition
+            enter-active-class="transition duration-100 ease-out"
+            enter-from-class="transform scale-95 opacity-0"
+            enter-to-class="transform scale-100 opacity-100"
+            leave-active-class="transition duration-75 ease-out"
+            leave-from-class="transform scale-100 opacity-100"
+            leave-to-class="transform scale-95 opacity-0"
+          >
+            <DisclosurePanel>
+              <ul
+                class="section p-0 divide-y divide-achromatic-400/30 dark:divide-achromatic-700/30"
+              >
+                <li
+                  v-for="file in files"
+                  :key="file"
+                  class="px-2 p-1 font-mono text-sm flex items-center gap-1"
+                >
+                  <button
+                    v-if="action === 'updated'"
+                    type="button"
+                    title="Compare file"
+                    class="btn text-sm"
+                    @click="compare(file)"
+                  >
+                    <font-awesome-icon
+                      v-if="!processing"
+                      :icon="['fas', 'right-left']"
+                      fixed-width
+                    />
+                    <Spinner v-else />
+                  </button>
+                  {{ file }}
+                </li>
+              </ul>
+            </DisclosurePanel>
+          </transition>
+        </Disclosure>
+        <div v-else :class="action" class="px-1 py-0.5 rounded opacity-50">
+          {{ files.length }}
+          {{ transChoice(files.length) }}
+          {{ action }}
+        </div>
+      </template>
+    </section>
     <section v-else class="justify-center text-center flex flex-col gap-4">
       <div>
         <ul class="inline-flex flex-col">
@@ -35,9 +95,7 @@ import Spinner from '@/Components/Spinner.vue'
           </li>
         </ul>
       </div>
-      <div
-        class="info"
-      >
+      <div class="info">
         <p>
           The file list and a file comparison of the changed files is only displayed if a Laravel
           Nova license is validated.
@@ -88,6 +146,25 @@ import Spinner from '@/Components/Spinner.vue'
         </div>
       </form>
     </Dialog>
+    <Dialog
+      :show="showFileCompare"
+      :title="fileCompare"
+      size="max-w-4xl"
+      @close="showFileCompare = false"
+    >
+      <div class="dialog-content text-sm">
+        <table class="w-full">
+          <tr>
+            <td
+              class="whitespace-pre w-1 font-mono px-1.5 text-right"
+              v-html="fileCompareData.oldLN"
+            />
+            <td class="whitespace-pre w-1 font-mono px-1.5 text-right border-x border-primary-200 dark:border-primary-700/50" v-html="fileCompareData.newLN" />
+            <td class="px-1.5" v-html="fileCompareData.code" />
+          </tr>
+        </table>
+      </div>
+    </Dialog>
   </TransitionRoot>
 </template>
 
@@ -98,6 +175,9 @@ import { router } from '@inertiajs/vue3'
  * @property {Array|Number} comparison.created
  * @property {Array|Number} comparison.deleted
  * @property {Array|Number} comparison.updated
+ * @property {String} fileCompareData.oldLN
+ * @property {String} fileCompareData.newLN
+ * @property {String} fileCompareData.code
  * */
 export default {
   props: {
@@ -117,10 +197,38 @@ export default {
         key: null,
         save: false
       },
-      formError: null
+      formError: null,
+      showFileCompare: false,
+      fileCompare: null,
+      fileCompareData: null
     }
   },
   methods: {
+    compare(file) {
+      this.processing = true
+      if (!this.fileCompare || !this.fileCompare !== file) {
+        console.log('Scan')
+        let ref = this
+        axios
+          .post('/diff', {
+            file: file,
+            v1: ref.$page.props.selected[0],
+            v2: ref.$page.props.selected[1]
+          })
+          .then(function (response) {
+            console.log('response.data', response.data)
+            ref.fileCompareData = response.data
+            ref.showFileCompare = true
+            ref.processing = false
+          })
+          .catch(function (error) {
+            error.response.status === 422
+              ? (ref.formError = error.response.data.message)
+              : ref.errorHandler(error)
+            ref.processing = false
+          })
+      }
+    },
     submit() {
       let ref = this
       this.processing = true
@@ -143,7 +251,7 @@ export default {
           ref.form.key = null
           error.response.status === 422
             ? (ref.formError = error.response.data.message)
-            : this.errorHandler(error)
+            : ref.errorHandler(error)
           ref.processing = false
         })
     },

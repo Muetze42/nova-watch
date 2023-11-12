@@ -60,7 +60,7 @@ class Nova
             $release['version'] = parseVersion($release['version']);
 
             return $release;
-        })->sortBy('version');
+        })->reverse();
 
         return $releases->filter(function (array $release) use ($majorVersion) {
             $version = explode('.', $release['version'])[0];
@@ -80,7 +80,8 @@ class Nova
     public static function comparison(string $version1, string $version2): ?array
     {
         $versions = [$version1, $version2];
-        sort($versions);
+        usort($versions, 'version_compare');
+
         $file = 'comparisons/' . implode('-', $versions);
         if (Storage::disk('nova')->exists($file)) {
             return Storage::disk('nova')->json($file);
@@ -122,9 +123,9 @@ class Nova
         });
 
         $data = [
-            'created' => $created,
-            'deleted' => $deleted,
-            'updated' => $updated,
+            'created' => array_values($created),
+            'deleted' => array_values($deleted),
+            'updated' => array_values($updated),
         ];
 
         Storage::disk('nova')->put($file, json_encode($data));

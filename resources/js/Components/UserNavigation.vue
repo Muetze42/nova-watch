@@ -75,7 +75,7 @@ export default {
         .catch(function (error) {
           error.response.status === 422
             ? (ref.formError = error.response.data.message)
-            : this.errorHandler(error)
+            : ref.errorHandler(error)
           ref.processing = false
         })
     },

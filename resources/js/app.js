@@ -69,7 +69,7 @@ createInertiaApp({
               alert(message)
               location.reload()
             } else {
-              error.response && error.response.data.message
+              error.response && error.response.data && error.response.data.message
                 ? alert('Error ' + status + ': ' + error.response.data.message)
                 : alert('Error ' + status)
             }
