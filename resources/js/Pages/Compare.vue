@@ -49,7 +49,6 @@ import Spinner from '@/Components/Spinner.vue'
                   class="px-2 p-1 font-mono text-sm flex items-center gap-1"
                 >
                   <button
-                    v-if="action === 'updated'"
                     type="button"
                     title="Compare file"
                     class="btn text-sm"
@@ -207,6 +206,7 @@ export default {
     compare(file) {
       this.processing = true
       if (!this.fileCompare || !this.fileCompare !== file) {
+        this.fileCompare = file
         console.log('Scan')
         let ref = this
         axios

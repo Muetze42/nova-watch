@@ -18,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+if (config('app.debug')) {
+    // Todo: Remove
+    Route::get('debug', [CompareController::class, 'debug']);
+}
+
 Route::get('/', HomeController::class)
     ->name('home');
 

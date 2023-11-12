@@ -65,4 +65,19 @@ class CompareController extends Controller
             $file
         ))->getParsed();
     }
+
+    /**
+     * @throws \League\CommonMark\Exception\CommonMarkException
+     */
+    public function debug()
+    {
+        $oldFile = 'releases/4.0.6/composer.json';
+        $newFile = 'releases/4.29.5/composer.json';
+
+        return (new Diff(
+            Storage::disk('nova')->exists($oldFile) ? Storage::disk('nova')->get($oldFile) : '',
+            Storage::disk('nova')->exists($newFile) ? Storage::disk('nova')->get($newFile) : '',
+            'composer.json'
+        ))->getParsed()['code'];
+    }
 }
