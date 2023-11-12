@@ -13,10 +13,10 @@ pre {
  colors extend edge to edge.
 */
 pre code.torchlight {
-  //@apply min-w-max;
+  @apply min-w-max;
   @apply block py-4;
   @apply rounded;
-  @apply overflow-x-auto max-w-[50rem];
+  //@apply overflow-x-auto max-w-[50rem];
 
   // Todo: Optimize
 }
