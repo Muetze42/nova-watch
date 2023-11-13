@@ -10,9 +10,9 @@
             <span>Wat.ch</span>
           </Link>
         </li>
-        <li>
-          <Link href="/faq" class="font-medium hover:text-sky-500">FAQ</Link>
-        </li>
+        <!--<li>-->
+        <!--  <Link href="/faq" class="font-medium hover:text-sky-500">FAQ</Link>-->
+        <!--</li>-->
       </ul>
       <div class="flex gap-2">
         <UserNavigation />
