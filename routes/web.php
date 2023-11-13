@@ -27,7 +27,11 @@ Route::get('/', HomeController::class)
     ->name('home');
 
 Route::get('{version1?}/{version2?}', [CompareController::class, 'compare'])
-    ->name('compare');
+    ->name('compare')
+    ->where([
+        'version1' => '[0-9.]+',
+        'version2' => '[0-9.]+'
+    ]);
 Route::post('diff', [CompareController::class, 'diff'])
     ->name('compare.diff');
 

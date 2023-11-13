@@ -151,14 +151,17 @@ import Spinner from '@/Components/Spinner.vue'
       size="max-w-4xl"
       @close="showFileCompare = false"
     >
-      <div class="dialog-content text-sm">
+      <div class="dialog-content scrollbar-thin text-sm">
         <table class="w-full">
           <tr>
             <td
               class="whitespace-pre w-1 font-mono px-1.5 text-right"
               v-html="fileCompareData.oldLN"
             />
-            <td class="whitespace-pre w-1 font-mono px-1.5 text-right border-x border-primary-200 dark:border-primary-700/50" v-html="fileCompareData.newLN" />
+            <td
+              class="whitespace-pre w-1 font-mono px-1.5 text-right border-x border-primary-200 dark:border-primary-700/50"
+              v-html="fileCompareData.newLN"
+            />
             <td class="px-1.5" v-html="fileCompareData.code" />
           </tr>
         </table>
