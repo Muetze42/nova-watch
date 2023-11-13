@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Release;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -87,24 +88,26 @@ class Nova
             return Storage::disk('nova')->json($file);
         }
 
-        $files = Release::whereMajorVersion(getMajorVersion($version1))
+        $releases = Release::whereMajorVersion(getMajorVersion($version1))
             ->where(function (Builder $query) use ($version1, $version2) {
                 /* @var \Illuminate\Database\Eloquent\Builder|\App\Models\Release $query */
                 $query->where('version', $version1)->orWhere('version', $version2);
             })
             ->orderBy('version_id')
-            ->get('files')
-            ->pluck('files')
-            ->toArray();
+            ->get(['files', 'published_at', 'notes', 'version']);
+
+        $files = $releases->pluck('files');
 
         if (count($files) != 2) {
             return null;
         }
 
-        $updated = array_unique(array_merge(
-            array_keys(array_diff($files[0], $files[1])),
-            array_keys(array_diff($files[1], $files[0])),
-        ));
+        $updated = array_unique(
+            array_merge(
+                array_keys(array_diff($files[0], $files[1])),
+                array_keys(array_diff($files[1], $files[0])),
+            )
+        );
 
         $releaseFiles = [
             Arr::where(array_keys($files[0]), function (string $file) use ($updated) {
@@ -123,9 +126,14 @@ class Nova
         });
 
         $data = [
-            'created' => array_values($created),
-            'deleted' => array_values($deleted),
-            'updated' => array_values($updated),
+            'files' => [
+                'created' => array_values($created),
+                'deleted' => array_values($deleted),
+                'updated' => array_values($updated),
+            ],
+            'published_at' => $releases->pluck('published_at', 'version')->map(
+                fn (Carbon $release) => $release->toFormattedDateString()
+            )->toArray(),
         ];
 
         Storage::disk('nova')->put($file, json_encode($data));

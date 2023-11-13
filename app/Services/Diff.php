@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Services\Markdown\CodeMarkdownConverter;
 use Illuminate\Support\Str;
 use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\Factory\RendererFactory;
@@ -133,7 +134,7 @@ class Diff
 
         $content = '```' . $this->language . "\n" . $code . "\n```";
 
-        return (new MarkdownConverter())->convert($content)->getContent();
+        return (new CodeMarkdownConverter())->convert($content)->getContent();
     }
 
     /**

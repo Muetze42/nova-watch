@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Markdown;
 
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\Attributes\AttributesExtension;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\MarkdownConverter as Converter;
-use Torchlight\Commonmark\V2\TorchlightExtension;
+use League\CommonMark\MarkdownConverter;
 
-class MarkdownConverter extends Converter
+class NoteMarkdownConverter extends MarkdownConverter
 {
     /**
      * Create a new Markdown converter pre-configured for GFM
@@ -20,9 +19,12 @@ class MarkdownConverter extends Converter
      */
     public function __construct(array $config = [])
     {
-        $environment = new Environment();
+        $environment = new Environment([
+            'external_link' => [
+                'open_in_new_window' => true,
+            ],
+        ]);
         $environment->addExtension(new CommonMarkCoreExtension())
-            ->addExtension(new TorchlightExtension())
             ->addExtension(new GithubFlavoredMarkdownExtension())
             ->addExtension(new AttributesExtension())
             ->addExtension(new ExternalLinkExtension());

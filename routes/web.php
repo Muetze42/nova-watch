@@ -18,11 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-if (config('app.debug')) {
-    // Todo: Remove
-    Route::get('debug', [CompareController::class, 'debug']);
-}
-
 Route::get('/', HomeController::class)
     ->name('home');
 
@@ -30,10 +25,12 @@ Route::get('{version1?}/{version2?}', [CompareController::class, 'compare'])
     ->name('compare')
     ->where([
         'version1' => '[0-9.]+',
-        'version2' => '[0-9.]+'
+        'version2' => '[0-9.]+',
     ]);
 Route::post('diff', [CompareController::class, 'diff'])
     ->name('compare.diff');
+Route::post('notes', [CompareController::class, 'notes'])
+    ->name('compare.notes');
 
 Route::post('validate', ValidateController::class)
     ->withoutMiddleware(HandleInertiaRequests::class)

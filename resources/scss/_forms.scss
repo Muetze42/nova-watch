@@ -22,6 +22,7 @@
     @apply inline-flex items-center gap-1 justify-center rounded;
     @apply leading-normal transition duration-150 ease-in-out;
     @apply bg-gradient-to-t shadow-lg;
+    @apply select-none;
 
     @apply enabled:from-blue-500 enabled:to-blue-300;
     @apply enabled:dark:text-achromatic-300 enabled:dark:from-achromatic-800 enabled:dark:to-achromatic-700;
