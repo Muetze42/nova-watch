@@ -23,3 +23,7 @@ Under construction.
 - [Tailwind CSS 3](https://tailwindcss.com/)
 - [Font Awesome 6 (Free)](https://fontawesome.com/)
 - [Headless UI](https://headlessui.com/)
+
+### Preview
+
+![File compare](https://raw.githubusercontent.com/Muetze42/nova-watch/main/resources/assets/file-compare.png "File compare")
