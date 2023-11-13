@@ -10,8 +10,8 @@ Under construction.
 - [x] Collect and store Laravel Nova releases
 - [x] Add Laravel Nova licence validation
 - [x] Add authentication
-- [X] Add file comparison for users/visitors with validated Laravel Nova licence
-- [ ] Fix Torchlight diff
+- [x] Add file comparison for users/visitors with validated Laravel Nova licence
+- [x] Fix Torchlight diff
 - [ ] Add notifications for new releases
 - [ ] Content on homepage
 
