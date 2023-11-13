@@ -66,7 +66,8 @@ class Diff
 
         $lines = explode("\n", trim($this->getUnified()));
         $oldLN = $newLN = null;
-        foreach ($lines as $line) {
+        $adds = $removes = [];
+        foreach ($lines as $key => $line) {
             $ident = $line[0];
             switch ($ident) {
                 case '@':
@@ -76,18 +77,16 @@ class Diff
                     $newLN = explode(',', $numbers[1])[0];
                     break;
                 case '+':
-                    $tlc = in_array($this->language, ['vue', 'html', 'blade']) ?
-                        '<!-- [tl! add] -->' : '// [tl! add]';
                     $output['oldLN'][] = '';
                     $output['newLN'][] = $newLN++;
-                    $output['code'][] = substr($line, 1) . '  ' . $tlc;
+                    $output['code'][] = substr($line, 1);
+                    $adds[] = $key;
                     break;
                 case '-':
-                    $tlc = in_array($this->language, ['vue', 'html', 'blade']) ?
-                        '<!-- [tl! remove] -->' : '// [tl! remove]';
                     $output['oldLN'][] = $oldLN++;
                     $output['newLN'][] = '';
-                    $output['code'][] = substr($line, 1) . '  ' . $tlc;
+                    $output['code'][] = substr($line, 1);
+                    $removes[] = $key;
                     break;
                 default:
                     $output['oldLN'][] = $oldLN++;
@@ -96,10 +95,26 @@ class Diff
             }
         }
 
+        $code = $this->renderCode($output['code']);
+        $count = 1;
+        $code = preg_replace_callback("/<div class='line'>/m", function ($matches) use (&$count, $adds, $removes) {
+            $return = $matches[0];
+
+            if (in_array($count, $adds)) {
+                $return = "<div class='line line-add line-has-background' style='background-color: #28a74530'>";
+            }
+            if (in_array($count, $removes)) {
+                $return = "<div class='line line-remove line-has-background' style='background-color: #d73a4930'>";
+            }
+            $count++;
+
+            return $return;
+        }, $code);
+
         return [
             'oldLN' => implode('<br>', $output['oldLN']),
             'newLN' => implode('<br>', $output['newLN']),
-            'code' => $this->renderCode($output['code']),
+            'code' => $code,
         ];
         //return array_map(fn ($item) => implode("\n", $item), $output);
     }
