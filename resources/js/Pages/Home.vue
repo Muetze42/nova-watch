@@ -7,6 +7,9 @@
     </h2>
     <img src="./../../../resources/assets/file-compare.png" alt="file-compare" class="border rounded" />
   </section>
+  <section>
+    Todo: Options to create notifications for new releases.
+  </section>
 </template>
 <script>
 export default {}
