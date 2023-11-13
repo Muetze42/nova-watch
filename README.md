@@ -12,7 +12,7 @@ Under construction.
 - [x] Add authentication
 - [x] Add file comparison for users/visitors with validated Laravel Nova licence
 - [x] Fix Torchlight diff
-- [ ] Add notes to compare
+- [x] Add notes to compare
 - [ ] Add notifications for new releases
 
 ## Used frameworks and resources
