@@ -55,7 +55,7 @@ import Spinner from '@/Components/Spinner.vue'
                 class="section p-0 divide-y divide-achromatic-400/30 dark:divide-achromatic-700/30"
               >
                 <li
-                  v-for="file in files"
+                  v-for="file in comparison.files"
                   :key="file"
                   class="px-2 p-1 font-mono text-sm flex items-center gap-1"
                 >
