@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Release;
 use App\Services\Diff;
+use App\Services\Markdown\NoteMarkdownConverter;
 use App\Services\Nova;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,11 +26,13 @@ class CompareController extends Controller
         $comparison = $version1 && $version2 && $version1 != $version2
             ? Nova::comparison($version1, $version2) : null;
 
-        if ($comparison && !$request->verifiedNovaLicence()) {
-            $comparison = array_map('count', $comparison);
+        if (!empty($comparison['files']) && !$request->verifiedNovaLicence()) {
+            $comparison['files'] = array_map('count', $comparison['files']);
         }
 
-        return Inertia::render('Compare', ['comparison' => $comparison]);
+        return Inertia::render('Compare', [
+            'comparison' => $comparison,
+        ]);
     }
 
     /**
@@ -39,7 +43,7 @@ class CompareController extends Controller
      * @throws \League\CommonMark\Exception\CommonMarkException
      * @return array
      */
-    public function diff(Request $request)
+    public function diff(Request $request): array
     {
         if (!$request->verifiedNovaLicence()) {
             abort(401);
@@ -67,17 +71,37 @@ class CompareController extends Controller
     }
 
     /**
-     * @throws \League\CommonMark\Exception\CommonMarkException
+     * @param \Illuminate\Http\Request  $request
+     *
+     * @return array
      */
-    public function debug()
+    public function notes(Request $request): array
     {
-        $oldFile = 'releases/4.0.6/composer.json';
-        $newFile = 'releases/4.29.5/composer.json';
+        $request->validate([
+            'v1' => ['required', 'string'],
+            'v2' => ['required', 'string'],
+        ]);
 
-        return (new Diff(
-            Storage::disk('nova')->exists($oldFile) ? Storage::disk('nova')->get($oldFile) : '',
-            Storage::disk('nova')->exists($newFile) ? Storage::disk('nova')->get($newFile) : '',
-            'composer.json'
-        ))->getParsed()['code'];
+        $versions = [
+            getVersionId($request->input('v1')),
+            getVersionId($request->input('v2')),
+        ];
+        sort($versions);
+
+        return Release::where('version_id', '>=', $versions[0])
+            ->where('version_id', '<=', $versions[1])
+            ->orderByDesc('version_id')
+            ->get(['version', 'notes', 'published_at'])
+            ->mapWithKeys(fn (Release $release) => [
+                $release->version => [
+                    'published_at' => $release->published_at->toFormattedDateString(),
+                    'notes' => str_replace(
+                        "\n",
+                        '',
+                        (new NoteMarkdownConverter())->convert(trim($release->notes))->getContent()
+                    ),
+                ],
+            ])
+            ->toArray();
     }
 }

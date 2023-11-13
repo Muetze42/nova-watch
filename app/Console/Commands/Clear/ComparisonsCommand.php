@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Clear;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class ClearComparisonsCommand extends Command
+class ComparisonsCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:clear-comparisons';
+    protected $signature = 'app:clear:comparisons';
 
     /**
      * The console command description.

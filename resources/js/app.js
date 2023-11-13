@@ -34,10 +34,21 @@ import {
   faRightLeft,
   faSpinner,
   faCheck,
-  faCaretRight
+  faCaretRight,
+  faFileLines
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCircle, faSun, faMoon, faCode, faRightLeft, faSpinner, faCheck, faCaretRight)
+library.add(
+  faCircle,
+  faSun,
+  faMoon,
+  faCode,
+  faRightLeft,
+  faSpinner,
+  faCheck,
+  faCaretRight,
+  faFileLines
+)
 
 createInertiaApp({
   resolve: (name) => {

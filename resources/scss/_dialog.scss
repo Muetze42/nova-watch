@@ -19,3 +19,9 @@
     @apply max-h-[50rem];
   }
 }
+
+.notes {
+  ul {
+    @apply list-disc list-outside ml-5;
+  }
+}
