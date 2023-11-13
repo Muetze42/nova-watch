@@ -22,8 +22,8 @@ class CheckController extends Controller
 
         return [
             'current' => $releases->last()->version,
-            'compare' => route('compare', [$version, $releases->last()->version]),
-            'notes' => $releases->pluck('notes', 'version')
+            'compare' => route('compare', [parseVersion($version), $releases->last()->version]),
+            'notes' => $releases->pluck('notes', 'version'),
         ];
     }
 }
