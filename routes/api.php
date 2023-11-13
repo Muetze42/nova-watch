@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CheckController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,6 @@ Route::get('/', function () {
         'time' => now(),
     ];
 })->name('check-reachability');
+
+Route::get('update-check/{version}', CheckController::class)
+    ->name('update-check');
