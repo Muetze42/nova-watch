@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\ExtendedUrlGenerator;
 use Illuminate\Http\Request;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +23,23 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->bootMacros();
+        $this->extends();
+    }
+
+    /**
+     * 'Extend' an abstract types in the container.
+     *
+     * @return void
+     */
+    public function extends(): void
+    {
+        $this->app->extend('url', function (UrlGenerator $urlGenerator) {
+            return new ExtendedUrlGenerator(
+                $this->app->make('router')->getRoutes(),
+                $urlGenerator->getRequest(),
+                $this->app->make('config')->get('app.asset_url')
+            );
+        });
     }
 
     /**

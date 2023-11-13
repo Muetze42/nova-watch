@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{{ $__env->yieldContent('code') .' - ' . __($__env->yieldContent('title')) }}</title>
         <link href="{{ asset('css/error-pages.css') }}" rel="stylesheet">
+        @include('app.favicon')
     </head>
     <body class="antialiased font-sans">
         <div class="md:flex min-h-screen">
