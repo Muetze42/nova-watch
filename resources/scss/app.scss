@@ -20,6 +20,10 @@
     @apply from-primary-300 dark:to-primary-300/30;
     @apply dark:from-primary-800 dark:to-primary-800/30;
   }
+
+  .scrollbar, .scrollbar-thin {
+    @apply scrollbar-thumb-neutral-500 scrollbar-track-neutral-800 scrollbar-thumb-rounded;
+  }
 }
 
 @import "fonts/inter-var";

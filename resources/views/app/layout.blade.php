@@ -7,7 +7,7 @@
     @vite(['resources/scss/app.scss', 'resources/js/app.js'])
     @inertiaHead
 </head>
-<body class="antialiased text-primary-800 bg-white dark:bg-primary-900 dark:text-primary-200">
+<body class="antialiased scrollbar text-primary-800 bg-white dark:bg-primary-900 dark:text-primary-200">
 @inertia
 </body>
 </html>

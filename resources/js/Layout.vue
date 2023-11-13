@@ -28,7 +28,7 @@
       </div>
     </div>
   </header>
-  <main class="content mt-16 grow flex flex-col gap-2">
+  <main class="content mt-16 grow flex flex-col gap-2 pb-8">
     <slot />
   </main>
   <Footer />
