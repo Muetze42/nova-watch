@@ -12,7 +12,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('app:nova:update-releases')
+            ->everyFiveMinutes();
+
+        $schedule->command('queue:work', [
+            '--timeout' => 0,
+            '--stop-when-empty',
+        ])->everyMinute()->withoutOverlapping()->when(function () {
+            return $this->app['config']->get('queue.default') == 'database';
+        });
     }
 
     /**
