@@ -21,7 +21,8 @@ class Notification extends Model
     protected $fillable = [
         'provider',
         'active',
-        'scope',
+        'scopes',
+        'config',
     ];
 
     /**
@@ -39,6 +40,7 @@ class Notification extends Model
     protected $casts = [
         'provider' => NotificationProviderEnum::class,
         'active' => 'bool',
+        'config' => 'encrypted:array',
     ];
 
     /**

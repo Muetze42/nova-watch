@@ -46,5 +46,9 @@ Route::prefix('auth')->name('auth.')->group(function () {
         ->name('logout');
 });
 
-Route::resource('notifications', NotificationController::class)
-    ->only(['index', 'show', 'update', 'destroy']);
+Route::middleware('auth')->group(function () {
+    Route::resource('notifications', NotificationController::class)
+        ->only(['index', 'update', 'destroy']);
+    Route::get('notifications/{slug}', [NotificationController::class, 'edit'])
+        ->name('notification.edit');
+});

@@ -18,7 +18,8 @@ namespace App\Models{
  * @property int $user_id
  * @property \App\Enums\NotificationProviderEnum $provider
  * @property bool $active
- * @property string|null $scope
+ * @property string|null $scopes
+ * @property array|null $config
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -29,10 +30,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Notification newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Notification query()
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereConfig($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereProvider($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Notification whereScope($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereScopes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Notification whereUserId($value)
  */

@@ -18,7 +18,8 @@ return new class () extends Migration
                 ->constrained();
             $table->boolean('provider');
             $table->boolean('active')->default(false);
-            $table->longText('scope')->nullable();
+            $table->text('scopes')->nullable();
+            $table->longText('config')->nullable();
             $table->timestamps();
         });
     }
