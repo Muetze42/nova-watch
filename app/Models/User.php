@@ -57,11 +57,11 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the alerts for the user.
+     * Get the notifications for the user.
      */
-    public function alerts(): HasMany
+    public function notifications(): HasMany
     {
-        return $this->hasMany(Alert::class);
+        return $this->hasMany(Notification::class);
     }
 
     /**

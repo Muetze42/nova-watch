@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Enums\AlertProviderEnum;
-use App\Models\Alert;
+use App\Enums\NotificationProviderEnum;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class AlertFactory extends Factory
+class NotificationFactory extends Factory
 {
-    protected $model = Alert::class;
+    protected $model = Notification::class;
 
     public function definition(): array
     {
@@ -19,7 +19,7 @@ class AlertFactory extends Factory
             'active' => fake()->boolean(75),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
-            'provider' => fake()->randomElement(AlertProviderEnum::class),
+            'provider' => fake()->randomElement(NotificationProviderEnum::class),
         ];
     }
 }

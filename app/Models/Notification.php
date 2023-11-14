@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Enums\AlertProviderEnum;
+use App\Enums\NotificationProviderEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
-class Alert extends Model
+class Notification extends Model
 {
     use HasFactory;
     use Notifiable;
@@ -37,12 +37,12 @@ class Alert extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'provider' => AlertProviderEnum::class,
+        'provider' => NotificationProviderEnum::class,
         'active' => 'bool',
     ];
 
     /**
-     * Get the user that owns the alert.
+     * Get the user that owns the notification.
      */
     public function user(): BelongsTo
     {

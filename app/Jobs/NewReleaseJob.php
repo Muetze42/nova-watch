@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\Alert;
+use App\Models\Notification;
 use App\Models\Release;
 use App\Notifications\NewReleaseNotification;
 use App\Services\Nova;
@@ -48,8 +48,8 @@ class NewReleaseJob implements ShouldQueue, ShouldBeUnique
         $comparison = Nova::comparison($previousVersion, $this->release->version);
         $compareRoute = route('compare', [parseVersion($previousVersion), $this->release->version]);
 
-        Alert::whereActive(true)->each(function (Alert $alert) use ($comparison, $compareRoute, $previousVersion) {
-            $alert->notify(new NewReleaseNotification($this->release, $comparison['files'], $compareRoute, $previousVersion));
+        Notification::whereActive(true)->each(function (Notification $notification) use ($comparison, $compareRoute, $previousVersion) {
+            $notification->notify(new NewReleaseNotification($this->release, $comparison['files'], $compareRoute, $previousVersion));
         });
     }
 

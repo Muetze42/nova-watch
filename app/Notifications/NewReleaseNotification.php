@@ -2,9 +2,9 @@
 
 namespace App\Notifications;
 
-use App\Enums\AlertProviderEnum;
+use App\Enums\NotificationProviderEnum;
 use App\Mail\NewReleaseMailable;
-use App\Models\Alert;
+use App\Models\Notification as NotificationModel;
 use App\Models\Release;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -54,14 +54,14 @@ class NewReleaseNotification extends Notification implements ShouldQueue
      *
      * @return array<int, string>
      */
-    public function via(Alert $notifiable): array
+    public function via(NotificationModel $notifiable): array
     {
         return match ($notifiable->provider) {
-            AlertProviderEnum::WEBHOOK => ['webhook'], // Todo
-            AlertProviderEnum::TELEGRAM => ['telegram'], // Todo
-            AlertProviderEnum::MS_TEAMS => ['teams'], // Todo
-            AlertProviderEnum::SLACK => ['slack'], // Todo
-            AlertProviderEnum::DISCORD => ['discord'], // Todo
+            //NotificationProviderEnum::WEBHOOK => ['webhook'], // Todo
+            //NotificationProviderEnum::TELEGRAM => ['telegram'], // Todo
+            //NotificationProviderEnum::MS_TEAMS => ['teams'], // Todo
+            //NotificationProviderEnum::SLACK => ['slack'], // Todo
+            //NotificationProviderEnum::DISCORD => ['discord'], // Todo
             default => ['mail'],
         };
     }
@@ -69,7 +69,7 @@ class NewReleaseNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(Alert $notifiable): NewReleaseMailable
+    public function toMail(NotificationModel $notifiable): NewReleaseMailable
     {
         $user = $notifiable->user;
 
@@ -90,7 +90,7 @@ class NewReleaseNotification extends Notification implements ShouldQueue
      *
      * @return array<string, mixed>
      */
-    public function toArray(Alert $notifiable): array
+    public function toArray(NotificationModel $notifiable): array
     {
         return [
             //

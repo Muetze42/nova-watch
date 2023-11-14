@@ -12,7 +12,7 @@ return new class () extends Migration
      */
     public function up(): void
     {
-        Schema::create('alerts', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)
                 ->constrained();
@@ -28,6 +28,6 @@ return new class () extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alerts');
+        Schema::dropIfExists('notifications');
     }
 };

@@ -4,7 +4,6 @@
 <div>
 {{ $notes }}
 </div>
-<br><br>
 <ul>
 @foreach($comparison as $action => $count)
 <li>{{ $count }} {{ trans_choice('File|Files', $count) }} {{ $action }}</li>

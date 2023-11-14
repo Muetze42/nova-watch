@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ValidateController;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
@@ -44,3 +45,6 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])
         ->name('logout');
 });
+
+Route::resource('notifications', NotificationController::class)
+    ->only(['index', 'show', 'update', 'destroy']);
