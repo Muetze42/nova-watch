@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -54,6 +55,14 @@ class User extends Authenticatable
         'licence_checked_at' => 'datetime',
         'delete_request_at' => 'datetime',
     ];
+
+    /**
+     * Get the alerts for the user.
+     */
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(Alert::class);
+    }
 
     /**
      * Determine if the user has verified a Laravel Nova licence.

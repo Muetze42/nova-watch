@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\NewReleaseJob;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -53,7 +54,7 @@ class Release extends Model
             $release->version_id = getVersionId($release->version);
         });
         static::created(function (self $release) {
-            // Todo Notifications
+            NewReleaseJob::dispatch($release);
         });
     }
 }

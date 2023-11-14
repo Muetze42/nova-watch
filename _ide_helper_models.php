@@ -16,13 +16,23 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $user_id
+ * @property \App\Enums\AlertProviderEnum $provider
+ * @property bool $active
+ * @property string|null $scope
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\AlertFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Alert newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Alert newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Alert query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Alert whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Alert whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert whereScope($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Alert whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Alert whereUserId($value)
  */
@@ -75,6 +85,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $delete_request_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Alert> $alerts
+ * @property-read int|null $alerts_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
