@@ -21,6 +21,7 @@ return new class () extends Migration
             $table->text('licence_url')->nullable();
             $table->text('licence_key')->nullable();
             $table->timestamp('licence_checked_at')->nullable();
+            $table->timestamp('delete_request_at')->nullable();
             $table->timestamps();
         });
     }

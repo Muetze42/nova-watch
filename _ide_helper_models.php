@@ -12,6 +12,25 @@
 
 namespace App\Models{
 /**
+ * App\Models\Alert
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Alert whereUserId($value)
+ */
+	class Alert extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Release
  *
  * @property int $id
@@ -52,7 +71,8 @@ namespace App\Models{
  * @property bool $save_licence
  * @property mixed|null $licence_url
  * @property mixed|null $licence_key
- * @property \Illuminate\Support\Carbon $licence_checked_at
+ * @property \Illuminate\Support\Carbon|null $licence_checked_at
+ * @property \Illuminate\Support\Carbon|null $delete_request_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -64,6 +84,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeleteRequestAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)

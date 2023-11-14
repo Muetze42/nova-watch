@@ -68,6 +68,7 @@ class AuthController extends Controller
             [
                 'name' => $socialiteUser->getName() ?: $socialiteUser->getNickname(),
                 'email' => $socialiteUser->getEmail(),
+                'delete_request_at' => null,
             ]
         );
 
