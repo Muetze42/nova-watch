@@ -13,7 +13,7 @@
             Active
           </label>
         </div>
-        <!-- Fields -->
+        <!-- Todo: Fields -->
         <div class="p-2">
           Scopes
           <textarea v-model="resource.scopes" class="form-textarea w-full" />

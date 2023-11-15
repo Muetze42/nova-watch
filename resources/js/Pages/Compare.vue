@@ -190,7 +190,7 @@ import Spinner from '@/Components/Spinner.vue'
           <div class="font-medium">Nova v{{ version }}</div>
           <div class="text-sm font-light dark:text-primary-200/50">{{ data.published_at }}</div>
         </div>
-        <div v-html="data.notes" class="dark:text-primary-200/70 font-light notes" />
+        <div class="dark:text-primary-200/70 font-light notes" v-html="data.notes" />
       </div>
     </div>
   </Dialog>
