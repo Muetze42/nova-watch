@@ -7,4 +7,8 @@
     @apply rounded p-2 font-bold text-center;
     @apply bg-red-300 text-red-900;
   }
+  .success {
+    @apply p-2 font-bold text-center;
+    @apply bg-green-300 text-green-900;
+  }
 }

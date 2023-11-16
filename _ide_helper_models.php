@@ -12,6 +12,37 @@
 
 namespace App\Models{
 /**
+ * App\Models\Notification
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property \App\Enums\NotificationProviderEnum $provider
+ * @property bool $active
+ * @property string|null $scopes
+ * @property array|null $config
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\NotificationFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereConfig($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereProvider($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereScopes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Notification whereUserId($value)
+ */
+	class Notification extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Release
  *
  * @property int $id
@@ -52,10 +83,11 @@ namespace App\Models{
  * @property bool $save_licence
  * @property mixed|null $licence_url
  * @property mixed|null $licence_key
- * @property \Illuminate\Support\Carbon $licence_checked_at
+ * @property \Illuminate\Support\Carbon|null $licence_checked_at
+ * @property \Illuminate\Support\Carbon|null $delete_request_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Notification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
@@ -64,6 +96,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeleteRequestAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereGithubId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)

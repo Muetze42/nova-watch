@@ -1,6 +1,6 @@
 <template>
   <header
-    class="fixed z-50 w-full bg-white bg-opacity-70 border-b border-primary-200 backdrop-blur dark:bg-primary-900 dark:border-primary-800"
+    class="fixed z-40 w-full bg-white bg-opacity-70 border-b border-primary-200 backdrop-blur dark:bg-primary-900 dark:border-primary-800"
   >
     <div class="content py-2 flex justify-between items-center">
       <ul role="menu" class="inline-flex gap-2">

@@ -1,7 +1,7 @@
 header {
   .menu-items {
     button, a {
-      @apply text-left w-full px-2 py-1;
+      @apply text-left w-full px-2 py-1 block;
 
       &:hover {
         @apply hover:bg-achromatic-300;

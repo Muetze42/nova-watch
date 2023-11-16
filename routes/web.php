@@ -3,9 +3,11 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompareController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ValidateController;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
+use NormanHuth\HelpersLaravel\App\Http\Middleware\ForceJsonResponse;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,4 +45,14 @@ Route::prefix('auth')->name('auth.')->group(function () {
         ->name('redirect');
     Route::post('logout', [AuthController::class, 'logout'])
         ->name('logout');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('notifications', NotificationController::class)
+        ->only(['index']);
+    Route::get('notifications/{slug}', [NotificationController::class, 'edit'])
+        ->name('notification.edit');
+    Route::post('notifications/{slug}', [NotificationController::class, 'update'])
+        ->name('notification.update')
+        ->middleware(ForceJsonResponse::class);
 });

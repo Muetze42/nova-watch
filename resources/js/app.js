@@ -7,6 +7,7 @@ import CompareSection from '@/Components/CompareSection.vue'
 import CompareIcon from '@/Components/CompareIcon.vue'
 import Spinner from '@/Components/Spinner.vue'
 import Dialog from '@/Components/Dialog/Dialog.vue'
+import {resolvePageComponent} from 'laravel-vite-plugin/inertia-helpers';
 
 /**
  * Font Awesome
@@ -35,7 +36,8 @@ import {
   faSpinner,
   faCheck,
   faCaretRight,
-  faFileLines
+  faFileLines,
+  faFloppyDisk
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -47,7 +49,8 @@ library.add(
   faSpinner,
   faCheck,
   faCaretRight,
-  faFileLines
+  faFileLines,
+  faFloppyDisk
 )
 
 createInertiaApp({

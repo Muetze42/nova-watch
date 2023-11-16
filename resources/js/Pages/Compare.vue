@@ -181,12 +181,16 @@ import Spinner from '@/Components/Spinner.vue'
   </Dialog>
   <Dialog :show="showNotes" title="Notes" @close="showNotes = false">
     <div class="flex flex-col gap-1 p-1 dialog-content scrollbar-thin">
-      <div v-for="(data, version) in notes" class="border border-primary-200 dark:border-primary-700/50 rounded p-1">
+      <div
+        v-for="(data, version) in notes"
+        :key="version"
+        class="border border-primary-200 dark:border-primary-700/50 rounded p-1"
+      >
         <div class="flex justify-between">
           <div class="font-medium">Nova v{{ version }}</div>
           <div class="text-sm font-light dark:text-primary-200/50">{{ data.published_at }}</div>
         </div>
-        <div v-html="data.notes" class="dark:text-primary-200/70 font-light notes" />
+        <div class="dark:text-primary-200/70 font-light notes" v-html="data.notes" />
       </div>
     </div>
   </Dialog>

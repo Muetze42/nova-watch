@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -26,6 +27,7 @@ class User extends Authenticatable
         'licence_url',
         'licence_key',
         'licence_checked_at',
+        'delete_request_at',
     ];
 
     /**
@@ -38,6 +40,7 @@ class User extends Authenticatable
         'licence_url',
         'licence_key',
         'licence_checked_at',
+        'delete_request_at',
     ];
 
     /**
@@ -50,7 +53,16 @@ class User extends Authenticatable
         'licence_url' => 'encrypted',
         'licence_key' => 'encrypted',
         'licence_checked_at' => 'datetime',
+        'delete_request_at' => 'datetime',
     ];
+
+    /**
+     * Get the notifications for the user.
+     */
+    public function notifications(): HasMany
+    {
+        return $this->hasMany(Notification::class);
+    }
 
     /**
      * Determine if the user has verified a Laravel Nova licence.
@@ -59,6 +71,6 @@ class User extends Authenticatable
      */
     public function hasVerifiedNovaLicence(): bool
     {
-        return $this->licence_checked_at && $this->licence_checked_at > now()->subDay();
+        return $this->licence_checked_at && $this->licence_checked_at > now()->subWeek();
     }
 }
