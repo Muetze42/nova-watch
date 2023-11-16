@@ -11,7 +11,7 @@ class Email extends AbstractResource
         return NotificationProviderEnum::EMAIL;
     }
 
-    public function fields(): void
+    protected function fields(): void
     {
         //
     }

@@ -3,6 +3,7 @@
 namespace App\Users\Resources\Notifications;
 
 use App\Enums\NotificationProviderEnum;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ExpectedValues;
 
@@ -21,28 +22,28 @@ abstract class AbstractResource
     /**
      * @return void
      */
-    abstract public function fields(): void;
+    abstract protected function fields(): void;
 
     /**
      * @param string $column
-     * @param string $label
+     * @param string|null $label
      * @param bool $required
      *
      * @return void
      */
-    protected function addStringField(string $column, string $label, bool $required = true): void
+    protected function addStringField(string $column, ?string $label = null, bool $required = true): void
     {
         $this->input($column, $label, $required);
     }
 
     /**
      * @param string $column
-     * @param string $label
+     * @param string|null $label
      * @param bool $required
      *
      * @return void
      */
-    protected function addPasswordField(string $column, string $label, bool $required = true): void
+    protected function addPasswordField(string $column, ?string $label = null, bool $required = true): void
     {
         $this->input($column, $label, $required, 'password');
     }
@@ -57,18 +58,6 @@ abstract class AbstractResource
     protected function addEmailField(string $column, ?string $label = null, bool $required = true): void
     {
         $this->input($column, $label, $required, 'email');
-    }
-
-    /**
-     * @param string $column
-     * @param string|null $label
-     * @param bool $required
-     *
-     * @return void
-     */
-    protected function addCheckboxField(string $column, ?string $label = null, bool $required = true): void
-    {
-        $this->input($column, $label, $required, 'checkbox');
     }
 
     /**
@@ -100,12 +89,12 @@ abstract class AbstractResource
     }
 
     /**
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
-    public function getFields(): array
+    public function getFields(): Collection
     {
         $this->fields();
 
-        return $this->fields;
+        return collect($this->fields);
     }
 }

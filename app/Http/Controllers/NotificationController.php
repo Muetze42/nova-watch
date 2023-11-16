@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\NotificationProviderEnum;
+use App\Models\Notification;
 use App\Users\Resources\Notifications\AbstractResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -60,17 +61,45 @@ class NotificationController extends Controller
     /**
      * Store a newly created resource or update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $slug)
     {
-        //
+        $resource = $this->getResource($slug);
+
+        $resource = new $resource();
+        $fields = $resource->getFields();
+
+        $validate = [
+            'resource.scopes' => ['string', 'nullable'],
+            'resource.active' => ['required', 'bool'],
+        ];
+        $requirements = $fields->where('required', true)->pluck('column');
+        foreach ($requirements as $requirement) {
+            $validate['resource.config.' . $requirement] = ['required'];
+        }
+
+        $request->validate($validate);
+
+        $request
+            ->user()
+            ->notifications()
+            ->updateOrCreate(
+                ['provider' => $resource->getProvider()],
+                [
+                    'active' => $request->boolean('resource.active'),
+                    'scopes' => $request->input('resource.scopes'),
+                    'config' => $request->input('resource.config'),
+                ]
+            );
+
+        return true;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Notification $notification)
     {
-        //
+        // Todo
     }
 
     /**
@@ -78,15 +107,11 @@ class NotificationController extends Controller
      */
     public function edit(Request $request, string $slug)
     {
-        $namespace = app()->getNamespace();
-        $resource = $namespace . 'Users\\Resources\\Notifications\\' . Str::studly($slug);
-
-        if (!class_exists($resource) && !$resource instanceof AbstractResource) {
-            abort(404);
-        }
+        $resource = $this->getResource($slug);
 
         $resource = new $resource();
         $provider = $resource->getProvider();
+        $fields = $resource->getFields();
 
         /* @var \App\Models\Notification|null $notification */
         $notification = $request
@@ -95,12 +120,34 @@ class NotificationController extends Controller
             ->where('provider', $provider)
             ->first();
 
+        $notifyConfig = $notification ? $notification->config : [];
+
         return Inertia::render('Notification/Edit', [
-            'config' => $notification?->config,
             'active' => (bool) $notification?->active,
-            'fields' => $resource->getFields(),
+            'slug' => $slug,
+            'fields' => $fields,
             'scopes' => $notification?->scopes,
             'label' => $provider->label(),
+            'config' => $fields->pluck('column')
+                ->mapWithKeys(function (string $column) use ($notifyConfig) {
+                    return [$column => data_get($notifyConfig, $column)];
+                }),
         ]);
+    }
+
+    /**
+     * @param string $slug
+     * @return \App\Users\Resources\Notifications\AbstractResource|mixed|string
+     */
+    protected function getResource(string $slug): mixed
+    {
+        $namespace = app()->getNamespace();
+        $resource = $namespace . 'Users\\Resources\\Notifications\\' . Str::studly($slug);
+
+        if (!class_exists($resource) && !$resource instanceof AbstractResource) {
+            abort(404);
+        }
+
+        return $resource;
     }
 }

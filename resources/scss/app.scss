@@ -100,3 +100,7 @@ main, label, .notes {
   @apply bg-stone-900/50;
   @apply dark:bg-zinc-700;
 }
+
+.no-underline-important {
+  @apply no-underline #{!important};
+}

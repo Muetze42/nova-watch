@@ -36,7 +36,8 @@ import {
   faSpinner,
   faCheck,
   faCaretRight,
-  faFileLines
+  faFileLines,
+  faFloppyDisk
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -48,7 +49,8 @@ library.add(
   faSpinner,
   faCheck,
   faCaretRight,
-  faFileLines
+  faFileLines,
+  faFloppyDisk
 )
 
 createInertiaApp({

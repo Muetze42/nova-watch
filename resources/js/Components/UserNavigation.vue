@@ -23,6 +23,7 @@ import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
           class="absolute w-full bg-achromatic-200 dark:bg-achromatic-800 menu-items border border-achromatic-400/50 dark:border-achromatic-700/50 divide-y divide-achromatic-400/30 dark:divide-achromatic-700/30"
         >
           <MenuItem as="button" type="button" @click="logout">Logout</MenuItem>
+          <Link href="/notifications" class="w-full no-underline-important">Notifications</Link>
         </MenuItems>
       </transition>
     </Menu>

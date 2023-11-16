@@ -7,6 +7,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ValidateController;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
+use NormanHuth\HelpersLaravel\App\Http\Middleware\ForceJsonResponse;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,10 @@ Route::prefix('auth')->name('auth.')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('notifications', NotificationController::class)
-        ->only(['index', 'update', 'destroy']);
+        ->only(['index']);
     Route::get('notifications/{slug}', [NotificationController::class, 'edit'])
         ->name('notification.edit');
+    Route::post('notifications/{slug}', [NotificationController::class, 'update'])
+        ->name('notification.update')
+        ->middleware(ForceJsonResponse::class);
 });
