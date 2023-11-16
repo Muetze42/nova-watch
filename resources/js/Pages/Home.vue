@@ -1,8 +1,8 @@
 <template>
   <h1 class="hidden">Laravel Nova Versions Compare</h1>
   <CompareSection />
-  <section>
-    <h2 class="text-center text-lg mb-2 font-medium">
+  <section class="text-center">
+    <h2 class="text-center text-lg mb-3 font-medium">
       Directly compare the changes of a file with a validated Nova license
     </h2>
     <img
@@ -11,8 +11,8 @@
       class="border rounded"
     />
   </section>
-  <section>
-    <h2 class="text-center text-lg mb-2 font-medium">
+  <section class="text-center">
+    <h2 class="text-center text-lg mb-3 font-medium">
       Get Notification for every new Laravel Nova Release.
     </h2>
     <img
