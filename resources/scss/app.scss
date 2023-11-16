@@ -6,6 +6,10 @@
   h1 {
     @apply hidden;
   }
+
+  img {
+    @apply inline-block;
+  }
 }
 
 @layer components {
