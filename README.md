@@ -13,7 +13,8 @@ Under construction.
 - [x] Add file comparison for users/visitors with validated Laravel Nova licence
 - [x] Fix Torchlight diff
 - [x] Add notes to compare
-- [ ] Add notifications for new releases
+- [x] Add email notifications for new releases
+- [ ] Add other notification providers
 
 ## Used frameworks and resources
 
