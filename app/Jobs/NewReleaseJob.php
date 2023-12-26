@@ -51,7 +51,7 @@ class NewReleaseJob implements ShouldQueue, ShouldBeUnique
 
         Notification::whereActive(true)
             ->each(function (Notification $notification) use ($comparison, $compareRoute, $previousVersion) {
-                if ($this->shouldNotify($comparison['files'], $notification->scope)) {
+                if ($this->shouldNotify($comparison['files'], $notification->scopes)) {
                     $notification->notify(
                         new NewReleaseNotification(
                             $this->release,
