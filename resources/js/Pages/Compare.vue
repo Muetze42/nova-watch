@@ -162,6 +162,18 @@ import Spinner from '@/Components/Spinner.vue'
       </div>
     </div>
   </Dialog>
+  <TransitionRoot
+    :show="showValidatedNotify"
+    enter="transform transition duration-[400ms]"
+    enter-from="opacity-0 rotate-[-120deg] scale-50"
+    enter-to="opacity-100 rotate-0 scale-100"
+    leave="transform duration-200 transition ease-in-out"
+    leave-from="opacity-100 rotate-0 scale-100 "
+    leave-to="opacity-0 scale-95 "
+    class="absolute top-1 z-50 bg-emerald-400 text-black text-xl rounded px-2 py-1"
+  >
+    License validated
+  </TransitionRoot>
 </template>
 
 <script>
@@ -200,7 +212,8 @@ export default {
       formError: null,
       showFileCompare: false,
       fileCompare: null,
-      fileCompareData: null
+      fileCompareData: null,
+      showValidatedNotify: false
     }
   },
   computed: {
@@ -272,6 +285,10 @@ export default {
             }
             ref.processing = false
             router.reload()
+            ref.showValidatedNotify = true
+            setTimeout(() => {
+              ref.showValidatedNotify = false
+            }, 1500)
           }
         })
         .catch(function (error) {
