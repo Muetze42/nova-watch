@@ -137,6 +137,7 @@ class NotificationController extends Controller
 
     /**
      * @param string $slug
+     *
      * @return \App\Users\Resources\Notifications\AbstractResource|mixed|string
      */
     protected function getResource(string $slug): mixed

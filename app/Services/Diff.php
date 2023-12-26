@@ -65,6 +65,8 @@ class Diff
             'code' => [],
         ];
 
+        appLog($this->getUnified());
+
         $lines = explode("\n", trim($this->getUnified()));
         $oldLN = $newLN = null;
         $adds = $removes = [];
@@ -144,7 +146,7 @@ class Diff
      *
      * @return string
      */
-    protected function getUnified(): string
+    public function getUnified(): string
     {
         $rendererName = 'Unified';
         $differOptions = [

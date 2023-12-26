@@ -37,13 +37,8 @@ class CompareController extends Controller
 
     /**
      * Get updated file differences between two Laravel Nova versions.
-     *
-     * @param \Illuminate\Http\Request  $request
-     *
-     * @throws \League\CommonMark\Exception\CommonMarkException
-     * @return array
      */
-    public function diff(Request $request): array
+    public function diff(Request $request)
     {
         if (!$request->verifiedNovaLicence()) {
             abort(401);
@@ -67,7 +62,8 @@ class CompareController extends Controller
             Storage::disk('nova')->exists($oldFile) ? Storage::disk('nova')->get($oldFile) : '',
             Storage::disk('nova')->exists($newFile) ? Storage::disk('nova')->get($newFile) : '',
             $file
-        ))->getParsed();
+        ))->getUnified();
+        //))->getParsed();
     }
 
     /**

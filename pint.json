@@ -6,7 +6,7 @@
             "syntax": "short"
         },
         "binary_operator_spaces": {
-            "default": "single_space"
+            "default": "at_least_single_space"
         },
         "blank_line_before_statement": {
             "statements": [
@@ -40,6 +40,9 @@
             "single_line": true
         },
         "clean_namespace": true,
+        "concat_space": {
+            "spacing": "one"
+        },
         "no_short_bool_cast": true,
         "no_singleline_whitespace_before_semicolons": true,
         "no_space_around_double_colon": true,
@@ -134,6 +137,7 @@
                 "property"
             ]
         },
+        "unary_operator_spaces": true,
         "single_quote": true,
         "space_after_semicolon": true,
         "spaces_inside_parentheses": true,
@@ -141,6 +145,7 @@
         "statement_indentation": true,
         "switch_case_semicolon_to_colon": true,
         "switch_case_space": true,
+        "ternary_operator_spaces": true,
         "trailing_comma_in_multiline": {
             "elements": [
                 "arrays"

@@ -11,7 +11,6 @@ Under construction.
 - [x] Add Laravel Nova licence validation
 - [x] Add authentication
 - [x] Add file comparison for users/visitors with validated Laravel Nova licence
-- [x] Fix Torchlight diff
 - [x] Add notes to compare
 - [ ] Add notifications for new releases
 
