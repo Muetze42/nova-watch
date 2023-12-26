@@ -93,14 +93,29 @@ import Spinner from '@/Components/Spinner.vue'
     @close="closeValidateLicence"
   >
     <form class="flex flex-col divide-y divide-achromatic-600/20" @submit.prevent="submit">
+      <div class="p-2 text-center notes">
+        In order to see code changes, a licence must be validated by
+        <a href="https://nova.laravel.com/licenses" target="_blank">Nova</a> in order not to violate
+        the <a href="https://nova.laravel.com/terms" target="_blank">Terms of Service</a>.
+      </div>
       <div class="p-2 text-center">Each verification is valid for a maximum of 24 hours.</div>
       <label class="p-2 pb-3.5">
-        url:
-        <input v-model="form.url" class="form-input w-full" type="text" placeholder="url" />
+        Nova License Url:
+        <input
+          v-model="form.url"
+          class="form-input w-full"
+          type="text"
+          placeholder="Nova License Url"
+        />
       </label>
       <label class="p-2 pb-3.5">
-        Key:
-        <input v-model="form.key" class="form-input w-full" type="password" placeholder="Key" />
+        Nova LicenseKey:
+        <input
+          v-model="form.key"
+          class="form-input w-full"
+          type="password"
+          placeholder="Nova LicenseKey"
+        />
       </label>
       <div v-if="user" class="p-2 pb-3.5 text-center">
         <label class="checkbox">
