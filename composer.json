@@ -26,9 +26,7 @@
         "norman-huth/helpers-collection-laravel": "^1.1",
         "socialiteproviders/github": "^4.1",
         "spatie/laravel-ignition": "^2.0",
-        "symfony/finder": "*",
-        "torchlight/torchlight-commonmark": "^0.5.5",
-        "torchlight/torchlight-laravel": "^0.5.14"
+        "symfony/finder": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.13",

@@ -35,7 +35,6 @@
 @import "forms";
 @import "alerts";
 @import "navigation";
-@import "torchlight";
 @import "dialog";
 
 #app {
@@ -90,21 +89,35 @@ main, label, .notes {
   }
 }
 
-.created {
-  @apply bg-emerald-900/50;
-  @apply dark:bg-emerald-900;
-}
+.compare-index {
+  .created {
+    @apply bg-emerald-900/50;
+    @apply dark:bg-emerald-900;
+  }
 
-.deleted {
-  @apply bg-red-900/50;
-  @apply dark:bg-red-900;
-}
+  .deleted {
+    @apply bg-red-900/50;
+    @apply dark:bg-red-900;
+  }
 
-.updated {
-  @apply bg-stone-900/50;
-  @apply dark:bg-zinc-700;
+  .updated {
+    @apply bg-stone-900/50;
+    @apply dark:bg-zinc-700;
+  }
 }
 
 .no-underline-important {
   @apply no-underline #{!important};
+}
+
+html.dark {
+  @import "prismjs/themes/prism-okaidia";
+  .token {
+    .deleted {
+      @apply text-red-400;
+    }
+  }
+}
+html:not(.dark) {
+  @import "prism-themes/themes/prism-coy-without-shadows";
 }

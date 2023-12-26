@@ -25,7 +25,7 @@ import Spinner from '@/Components/Spinner.vue'
       </div>
       <div>Released {{ comparison.published_at[$page.props.selected[1]] }}</div>
     </section>
-    <section v-if="licensed" class="flex flex-col gap-1">
+    <section v-if="licensed" class="flex flex-col gap-1 compare-index">
       <template v-for="(files, action) in comparison.files" :key="action">
         <Disclosure v-if="files.length" v-slot="{ open }">
           <DisclosureButton
@@ -164,19 +164,7 @@ import Spinner from '@/Components/Spinner.vue'
     @close="showFileCompare = false"
   >
     <div class="dialog-content scrollbar-thin text-sm">
-      <table class="w-full">
-        <tr>
-          <td
-            class="whitespace-pre w-1 font-mono px-1.5 text-right"
-            v-html="fileCompareData.oldLN"
-          />
-          <td
-            class="whitespace-pre w-1 font-mono px-1.5 text-right border-x border-primary-200 dark:border-primary-700/50"
-            v-html="fileCompareData.newLN"
-          />
-          <td class="px-1.5" v-html="fileCompareData.code" />
-        </tr>
-      </table>
+      <pre class="language-diff"><code v-html="highlightedFileCompareData" /></pre>
     </div>
   </Dialog>
   <Dialog :show="showNotes" title="Notes" @close="showNotes = false">
@@ -198,15 +186,16 @@ import Spinner from '@/Components/Spinner.vue'
 
 <script>
 import { router } from '@inertiajs/vue3'
+import Prism from 'prismjs'
+import 'prismjs/components/prism-diff.js'
+import 'prismjs/themes/prism.css'
 
 /**
  * @property {Array|Number} comparison.files.created
  * @property {Array|Number} comparison.files.deleted
  * @property {Array|Number} comparison.files.updated
  * @property {Array} comparison.published_at
- * @property {String} fileCompareData.oldLN
- * @property {String} fileCompareData.newLN
- * @property {String} fileCompareData.code
+ * @property {String} fileCompareData
  * */
 export default {
   props: {
@@ -232,6 +221,11 @@ export default {
       showFileCompare: false,
       fileCompare: null,
       fileCompareData: null
+    }
+  },
+  computed: {
+    highlightedFileCompareData() {
+      return Prism.highlight(this.fileCompareData, Prism.languages.diff, 'language-diff')
     }
   },
   methods: {
@@ -262,7 +256,6 @@ export default {
       this.processing = true
       if (!this.fileCompare || !this.fileCompare !== file) {
         this.fileCompare = file
-        console.log('Scan')
         let ref = this
         axios
           .post('/diff', {

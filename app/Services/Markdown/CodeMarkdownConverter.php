@@ -8,7 +8,6 @@ use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\ExternalLink\ExternalLinkExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
-use Torchlight\Commonmark\V2\TorchlightExtension;
 
 class CodeMarkdownConverter extends MarkdownConverter
 {
@@ -22,7 +21,6 @@ class CodeMarkdownConverter extends MarkdownConverter
     {
         $environment = new Environment();
         $environment->addExtension(new CommonMarkCoreExtension())
-            ->addExtension(new TorchlightExtension())
             ->addExtension(new GithubFlavoredMarkdownExtension())
             ->addExtension(new AttributesExtension())
             ->addExtension(new ExternalLinkExtension());
