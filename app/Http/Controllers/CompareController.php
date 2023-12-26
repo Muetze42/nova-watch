@@ -63,7 +63,6 @@ class CompareController extends Controller
             Storage::disk('nova')->exists($newFile) ? Storage::disk('nova')->get($newFile) : '',
             $file
         ))->getUnified();
-        //))->getParsed();
     }
 
     /**

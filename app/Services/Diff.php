@@ -54,8 +54,7 @@ class Diff
     /**
      * Get the parsed difference between two strings.
      *
-     * @throws \League\CommonMark\Exception\CommonMarkException
-     * @return array
+     * @deprecated
      */
     public function getParsed(): array
     {
