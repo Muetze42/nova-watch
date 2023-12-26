@@ -25,7 +25,7 @@ import Spinner from '@/Components/Spinner.vue'
       </div>
       <div>Released {{ comparison.published_at[$page.props.selected[1]] }}</div>
     </section>
-    <section v-if="licensed" class="flex flex-col gap-1 compare-index">
+    <section class="flex flex-col gap-1 compare-index">
       <template v-for="(files, action) in comparison.files" :key="action">
         <Disclosure v-if="files.length" v-slot="{ open }">
           <DisclosureButton
@@ -63,7 +63,7 @@ import Spinner from '@/Components/Spinner.vue'
                     type="button"
                     title="Compare file"
                     class="btn text-sm"
-                    @click="compare(file)"
+                    @click="licensed ? compare(file) : (showLicenceValidation = true)"
                   >
                     <font-awesome-icon
                       v-if="!processing"
@@ -84,41 +84,6 @@ import Spinner from '@/Components/Spinner.vue'
           {{ action }}
         </div>
       </template>
-    </section>
-    <section v-else class="justify-center text-center flex flex-col gap-4">
-      <div>
-        <ul class="inline-flex flex-col">
-          <li
-            v-for="(count, action) in comparison.files"
-            :key="action"
-            :class="action"
-            class="py-0.5 px-1 flex items-center justify-between gap-2"
-          >
-            <span class="pr-0.5">
-              <CompareIcon :action="action" />
-            </span>
-            <span class="pl-0.5">
-              {{ count }}
-              {{ transChoice(count) }}
-              {{ action }}
-            </span>
-          </li>
-        </ul>
-      </div>
-      <div class="info">
-        <p>
-          The file list and a file comparison of the changed files is only displayed if a Laravel
-          Nova license is validated.
-        </p>
-        <p>
-          <a href="https://nova.laravel.com/terms" target="_blank">Laravel Nova Terms of Service</a>
-        </p>
-        <p>
-          <button type="button" class="btn px-2" @click="showLicenceValidation = true">
-            Validate Nova Licence
-          </button>
-        </p>
-      </div>
     </section>
   </TransitionRoot>
   <Dialog

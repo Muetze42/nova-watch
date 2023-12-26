@@ -26,9 +26,9 @@ class CompareController extends Controller
         $comparison = $version1 && $version2 && $version1 != $version2
             ? Nova::comparison($version1, $version2) : null;
 
-        if (!empty($comparison['files']) && !$request->verifiedNovaLicence()) {
-            $comparison['files'] = array_map('count', $comparison['files']);
-        }
+        //if (!empty($comparison['files']) && !$request->verifiedNovaLicence()) {
+        //    $comparison['files'] = array_map('count', $comparison['files']);
+        //}
 
         return Inertia::render('Compare', [
             'comparison' => $comparison,
