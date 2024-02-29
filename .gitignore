@@ -20,3 +20,4 @@ yarn-error.log
 deploy.sh
 .php-cs-fixer.cache
 /deploy/*.sh
+/sentry.auth.token

@@ -53,6 +53,8 @@ library.add(
   faFloppyDisk
 )
 
+import * as Sentry from '@sentry/vue'
+
 createInertiaApp({
   resolve: (name) => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -61,7 +63,17 @@ createInertiaApp({
     return page
   },
   setup({ el, App, props, plugin }) {
-    createApp({ render: () => h(App, props) })
+    const app = createApp({ render: () => h(App, props) })
+
+    Sentry.init({
+      app,
+      dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
+      tunnel: '/api/sentry-tunnel',
+      trackComponents: true,
+      logErrors: true
+    })
+
+    app
       .use(plugin)
       .mixin({
         computed: {

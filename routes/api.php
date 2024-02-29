@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\CheckController;
+use App\Http\Controllers\Api\SentryTunnelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,4 @@ Route::get('/', function () {
 
 Route::get('update-check/{version}', CheckController::class)
     ->name('update-check');
+Route::post('sentry-tunnel', SentryTunnelController::class);

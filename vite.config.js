@@ -1,7 +1,10 @@
-import { defineConfig } from 'vite'
+import { sentryVitePlugin } from '@sentry/vite-plugin'
+import { defineConfig, loadEnv } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'node:path'
+
+const env = loadEnv('all', process.cwd())
 
 export default defineConfig({
   plugins: [
@@ -16,6 +19,14 @@ export default defineConfig({
           includeAbsolute: false
         }
       }
+    }),
+    sentryVitePlugin({
+      org: 'norman-huth',
+      project: 'nova-watch',
+      release: {
+        name: new Date().getTime()
+      },
+      authToken: env.VITE_SENTRY_AUTH_TOKEN.trim()
     })
   ],
   resolve: {
