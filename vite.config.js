@@ -33,5 +33,8 @@ export default defineConfig({
     alias: {
       '@': resolve('./resources/js')
     }
+  },
+  build: {
+    sourcemap: true
   }
 })
