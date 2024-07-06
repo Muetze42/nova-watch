@@ -69,8 +69,7 @@ createInertiaApp({
       app,
       dsn: import.meta.env.VITE_SENTRY_DSN_PUBLIC,
       tunnel: '/api/sentry-tunnel',
-      trackComponents: true,
-      logErrors: true
+      tracesSampleRate: 0
     })
 
     app
